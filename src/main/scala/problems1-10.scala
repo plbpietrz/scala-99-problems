@@ -45,8 +45,16 @@ object Problems1to10 {
     xs equals reversereverseFunc(xs)
   }
 
-  def flatten[T](xs: List[T]): List[T] = {
-    Nil
+  def flatten(xs: List[Any]): List[Any] = xs flatMap {
+    case xs: List[_] => flatten(xs)
+    case x           => List(x)
+  }
+  
+  def compress[T](xs: List[T]): List[T] = {
+    xs.foldLeft(List[T]())((as, e) => as match {
+      case Nil => List(e)
+      case x::xs => if (x equals e) as else e::as
+    }).reverse
   }
 
 }
