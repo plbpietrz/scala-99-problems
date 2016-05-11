@@ -49,12 +49,25 @@ object Problems1to10 {
     case xs: List[_] => flatten(xs)
     case x           => List(x)
   }
-  
+
   def compress[T](xs: List[T]): List[T] = {
     xs.foldLeft(List[T]())((as, e) => as match {
       case Nil => List(e)
       case x::xs => if (x equals e) as else e::as
     }).reverse
+  }
+
+  def pack[T](xs: List[T]): List[List[T]] = {
+    @annotation.tailrec
+    def aux(xs: List[T], e: T, es: List[T], as: List[List[T]]): List[List[T]] = xs match {
+      case x::xs => if (x equals e) aux(xs, e, x::es, as) else aux(xs, x, List(x), es::as)
+      case Nil   => es::as
+    }
+    aux(xs tail, xs head, List(xs head), List()).reverse
+  }
+
+  def encode[T](xs: List[T]): List[(Int, T)] = {
+    pack(xs).foldLeft(List[(Int,T)]())((a, x) => (length(x), x head)::a).reverse
   }
 
 }
