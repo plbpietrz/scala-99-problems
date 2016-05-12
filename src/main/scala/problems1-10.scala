@@ -70,4 +70,7 @@ object Problems1to10 {
     pack(xs).foldLeft(List[(Int,T)]())((a, x) => (length(x), x head)::a).reverse
   }
 
+  def encode_sol[A](ls: List[A]): List[(Int, A)] =
+    pack(ls) map { e => (e.length, e.head) }
+
 }

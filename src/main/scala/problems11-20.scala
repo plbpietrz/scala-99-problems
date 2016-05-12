@@ -11,9 +11,21 @@ object Problems11to20 {
     }
     xs.foldLeft(List[T]())((a, x) => aux(x._1, x._2, a)).reverse
   }
-  
-  def encodeDirect[T](xs: List[T]): List[(Int,T)] = {
-    Nil
+
+  def decode_sol[T](xs: List[(Int, T)]): List[T] = {
+    xs flatMap { e => List.make(e._1, e._2) }
   }
+
+  def encodeDirect[T](xs: List[T]): List[(Int,T)] = xs match {
+    case Nil         => List()
+    case _ : List[T] => {
+      val (p, nx) = xs span (_ == xs.head)
+      (p length, p head)::encodeDirect(nx)
+    }
+  }
+
+  def duplicate[T](xs: List[T]): List[T] = xs.flatMap(x => List(x,x))
+
+  def duplicateN[T](n: Int, xs: List[T]): List[T] = xs.flatMap(List.make(n,_))
 
 }
