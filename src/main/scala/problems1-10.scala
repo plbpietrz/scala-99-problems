@@ -52,7 +52,7 @@ object Problems1to10 {
 
   def compress[T](xs: List[T]): List[T] = {
     xs.foldLeft(List[T]())((as, e) => as match {
-      case Nil => List(e)
+      case Nil   => List(e)
       case x::xs => if (x equals e) as else e::as
     }).reverse
   }

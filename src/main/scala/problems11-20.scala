@@ -28,4 +28,29 @@ object Problems11to20 {
 
   def duplicateN[T](n: Int, xs: List[T]): List[T] = xs.flatMap(List.make(n,_))
 
+  def drop[T](n: Int, xs: List[T]): List[T] = {
+    def aux[T](i: Int, xs: List[T], ys: List[T]): List[T] = xs match {
+      case x::xs => if (i == n) aux(1, xs, ys) else aux(i + 1, xs, x::ys)
+      case _     => ys
+    }
+    aux(1, xs, List[T]()).reverse
+  }
+
+  def dropFunctional[A](n: Int, ls: List[A]): List[A] =
+    ls.zipWithIndex filter { v => (v._2 + 1) % n != 0 } map { _._1 }
+
+  def split[T](n: Int, xs: List[T]): (List[T], List[T]) =
+    (xs take n, xs drop n)
+
+  def slice[T](s: Int, e: Int, xs: List[T]): List[T] = {
+    def aux[T](i: Int, xs: List[T], ys: List[T]): List[T] = xs match {
+      case x::xs => if (i < s) aux(i + 1, xs, ys)
+                    else if (i < e) aux(i + 1, xs, x::ys)
+                    else ys
+      case _     => ys
+    }
+    aux(0, xs, Nil).reverse
+  }
+
+
 }
