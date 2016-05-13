@@ -1,6 +1,6 @@
 object Problems11to20 {
   def encodeModified[T](xs: List[T]): List[Any] = {
-    Problems1to10.encode(xs).map {
+    Problems01to10.encode(xs).map {
       case (n, x) => if (n == 1) x else (n, x)
     }
   }
@@ -52,5 +52,14 @@ object Problems11to20 {
     aux(0, xs, Nil).reverse
   }
 
+  def rotate[T](n: Int, xs: List[T]) = {
+    if (n > 0) xs.splitAt(n)
+    else       xs.splitAt(xs.length + n)
+    match { case (xs,ys) => ys:::xs }
+  }
+
+  def removeAt[T](n: Int, xs: List[T]) = {
+    xs.splitAt(n) match {case (xs, ys) => (xs:::(ys tail), ys head)}
+  }
 
 }

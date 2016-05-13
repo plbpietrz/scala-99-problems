@@ -1,4 +1,4 @@
-object Problems1to10 {
+object Problems01to10 {
   @annotation.tailrec
   def last[T](xs: List[T]): T = xs match {
     case x::Nil => x
