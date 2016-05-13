@@ -52,13 +52,12 @@ object Problems11to20 {
     aux(0, xs, Nil).reverse
   }
 
-  def rotate[T](n: Int, xs: List[T]) = {
-    if (n > 0) xs.splitAt(n)
-    else       xs.splitAt(xs.length + n)
+  def rotate[T](n: Int, xs: List[T]): List[T] = {
+    (if (n > 0) xs.splitAt(n) else xs.splitAt(xs.length + n))
     match { case (xs,ys) => ys:::xs }
   }
 
-  def removeAt[T](n: Int, xs: List[T]) = {
+  def removeAt[T](n: Int, xs: List[T]): (List[T], T) = {
     xs.splitAt(n) match {case (xs, ys) => (xs:::(ys tail), ys head)}
   }
 
