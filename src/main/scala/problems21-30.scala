@@ -24,10 +24,18 @@ object Problems21to30 {
     aux(n, xs, Nil, new scala.util.Random)
   }
 
-  def lotto(n: Int, l: Int): List[Int] = {
+  def lotto(n: Int, l: Int): List[Int] =
     randomSelect(n, range(1, l + 1))
-  }
 
   def randomPermute[T](xs: List[T]): List[T] =
     randomSelect(xs length, xs)
+  
+  def combinations[T](n: Int, xs: List[T]): List[List[T]] = {
+    def aux[T](n: Int, rs: List[T], xs: List[T]): List[List[T]] = (n, xs) match {
+      case (0, _)   => List(rs)
+      case (_, Nil) => Nil
+      case (n, x::xs) => aux(n - 1, x::rs, xs):::aux(n, rs, xs)
+    }
+    aux(n, Nil, xs)
+  }
 }
